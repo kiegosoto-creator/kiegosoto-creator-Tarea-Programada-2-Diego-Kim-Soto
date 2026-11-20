@@ -71,4 +71,58 @@ def iniciar_sesion(lista_jugadores, username_ingresado):
     #Si no lo encuentra retorna None.
     return None
 
+#Fichas...
+VALOR_FICHAS={"rojo":10,"azul":50,"verde":20,"blanco":5}
+
+def comprar_fichas(jugador, cant_rojas, cant_azules, cant_verdes, cant_blancas):
+    """
+    Cuando el usuario trata de comprar fichas, Retorna True si funciona la compra, y
+    False si no le alcansa.
+    """
+    #VAlido que no sean negativos, un error como no revisar podria ser explotado.
+    if cant_rojas<0 or cant_azules<0 or cant_verdes<0 or cant_blancas<0:
+        return False
+    #Calculo el costo total de las fichas con la base de datos de VALOR_FICHAS
+    costo_total=(cant_rojas*VALOR_FICHAS["rojo"])+\
+                (cant_azules*VALOR_FICHAS["azul"])+\
+                (cant_verdes*VALOR_FICHAS["verde"])+\
+                (cant_blancas*VALOR_FICHAS["blanco"])
+    #Si NO le alcanza al usuario
+    if jugador[1][0]<costo_total:
+        return False #Retorna False y  nada mas pasa.
+    #Pero si le alcanza, subtrae el costo total de las fichas, y agrega las fichas.
+    jugador[1][0]-=costo_total
+    jugador[1][1]+=cant_rojas
+    jugador[1][2]+=cant_azules
+    jugador[1][3]+=cant_verdes
+    jugador[1][4]+=cant_blancas
+    #Retorna True al funcionar.
+    return True
+
+def canjear_fichas(jugador, cant_rojas, cant_azules, cant_verdes, cant_blancas):
+    """
+    Cuando el usuario canjea las fichas por dinero, retorna True si funciona, Y False si no.
+    """
+    if cant_rojas<0 or cant_azules<0 or cant_verdes<0 or cant_blancas<0:
+            return False
+    #Una ves maz alido que no awa negaticov
+    if (jugador[1][1] < cant_rojas or
+        jugador[1][2] < cant_azules or
+        jugador[1][3] < cant_verdes or
+        jugador[1][4] < cant_blancas):
+        return False
+    #Calculo cuanto dinero se recive or las fichas
+    dinero_total=(cant_rojas*VALOR_FICHAS["rojo"])+\
+                 (cant_azules*VALOR_FICHAS["azul"])+\
+                 (cant_verdes*VALOR_FICHAS["verde"])+\
+                 (cant_blancas*VALOR_FICHAS["blanco"])
+    #Vendo las fichas
+    jugador[1][1]-=cant_rojas
+    jugador[1][2]-=cant_azules
+    jugador[1][3]-=cant_verdes
+    jugador[1][4]-=cant_blancas
+    #Rcive el dinero
+    jugador[1][0]+=dinero_total
+    #Retorna True porquw funciomo
+    return True
 
