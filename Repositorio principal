@@ -4,33 +4,28 @@
 
 #Importaciones necesarias.
 import pickle
-import tkinter
-import os
-#Defino el nnombre de la base de datos.
-ARCHIVO="datos_casino"
-#Funciones para cargar y guardar
+
+#Base de datos
+ARCHIVO = "datos_casino"
+
+#Funciones cargar y guardar
 def cargar():
     """
-    #
+    Retorna la base de datos del archivo
+    Si no lo encuentra, retorna lista vacia
     """
     try:
-        with open(ARCHIVO,'rb') as archivo:
-            lista_jugadores=pickle.load(archivo)
+        with open(ARCHIVO, 'rb') as archivo: #Abre el archivo en modo lectura binaria('rb').
+            lista_jugadores = pickle.load(archivo)
             return lista_jugadores
-    except FileNotFoundError:
+    except FileNotFoundError: #Si el archivo o existe, retorna lista vacia.
         return []
-#
+
 def guardar(lista_jugadores):
     """
-    #
+    Guarda una lista de jugadores en la base de datos
     """
-    with open(ARCHIVO,'wb') as archivo:
-        pickle.dump(lista_jugadores,archivo)
-#
-jugadores=cargar()
-print(len(jugadores))
-if len(jugadores)==0:
-    nuevo_jugador=[("a","b","c"),[100.0,0,0,0,0]]
-    jugadores.append(nuevo_jugador)
-    guardar(jugadores)
-    print
+    with open(ARCHIVO, 'wb') as archivo: #Abre el archivo en modo escritura binaria('wb')
+        pickle.dump(lista_jugadores, archivo)
+
+#Registro de jugadores...
