@@ -29,3 +29,30 @@ def guardar(lista_jugadores):
         pickle.dump(lista_jugadores, archivo)
 
 #Registro de jugadores...
+def agregar_jugador(lista_jugadores, username, nombre, apellido):
+    """
+    Valida y agrega un nuevo jugador a la lista de jugadores
+    Retorna True si lo registra, y False si no lo registra por algun problema.
+    """
+    #"Limpio"(marcas de cuotacion, o sea no literlamnete limpiar) los nombres dados.
+    username=username.strip()
+    nombre=nombre.strip()
+    apellido=apellido.strip()
+    #Esto se hace para validar que no esten vacios.
+    if not username or not nombre or not apellido:
+        print("Ningun campo puede estar vacio")
+        return False
+    #Valido que no se repita el nombre de usuario en la lista de jugadores, y uso 'any'
+    if any(jugador[0][0].lower() == username.lower() for jugador in lista_jugadores):
+        print("El nombre de usuario ya esta siendo usado por otro jugador")
+        return False
+    #Al pasar previos 2 filtros, Crea al jugador
+    nuevo_jugador=[(username, nombre, apellido),[0.0,0,0,0,0],0]
+    #Agrega nuevo jugador a la lista, y guarda.
+    lista_jugadores.append(nuevo_jugador)
+    guardar(lista_jugadores)
+    return True
+
+#
+
+    
