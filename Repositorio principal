@@ -1,8 +1,36 @@
+#Tarea 2 Taller de programacio
+#Estudiante: Diego kim Soto
+#Carnet: 2025081346
+
+#Importaciones necesarias.
+import pickle
+import tkinter
+import os
+#Defino el nnombre de la base de datos.
+ARCHIVO="datos_casino"
+#Funciones para cargar y guardar
+def cargar():
+    """
+    #
+    """
+    try:
+        with open(ARCHIVO,'rb') as archivo:
+            lista_jugadores=pickle.load(archivo)
+            return lista_jugadores
+    except FileNotFoundError:
+        return []
 #
+def guardar(lista_jugadores):
+    """
+    #
+    """
+    with open(ARCHIVO,'wb') as archivo:
+        pickle.dump(lista_jugadores,archivo)
 #
-#
-#
-#
-#
-#
-#
+jugadores=cargar()
+print(len(jugadores))
+if len(jugadores)==0:
+    nuevo_jugador=[("a","b","c"),[100.0,0,0,0,0]]
+    jugadores.append(nuevo_jugador)
+    guardar(jugadores)
+    print
