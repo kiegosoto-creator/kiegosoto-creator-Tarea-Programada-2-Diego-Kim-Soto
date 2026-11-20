@@ -53,6 +53,22 @@ def agregar_jugador(lista_jugadores, username, nombre, apellido):
     guardar(lista_jugadores)
     return True
 
-#
+#Inicio de session
+def iniciar_sesion(lista_jugadores, username_ingresado):
+    """
+    Busca e un jugador por nombre de usuario.
+    Retorna el jugador si existe, y si no retorna None.
+    """
+    #"Limpio el nombre ingresado."
+    username_ingresado=username_ingresado.strip()
+    #Reviso que no este vacio
+    if not username_ingresado:
+        return None
+    #Revisa si existe jugador
+    for jugador in lista_jugadores:
+        if jugador[0][0].lower()==username_ingresado.lower():
+            return jugador #Retornadatos de jugador si los nombreees de usuario son iguales.
+    #Si no lo encuentra retorna None.
+    return None
 
-    
+
